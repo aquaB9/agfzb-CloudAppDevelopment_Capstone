@@ -1,18 +1,21 @@
-from django.urls import path
+from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from . import views
+from django.contrib import admin
 
 app_name = 'djangoapp'
 urlpatterns = [
     # route is a string contains a URL pattern
     # view refers to the view function
     # name the URL
-
+    path(route='', view=views.index, name='index'),
+    #path(route='admin/', admin.site.urls),
+    #path(route='djangoapp/', include('djangoapp.urls')),
     # path for about view
-
+    path(route='about/', view=views.about, name='about'),
     # path for contact us view
-
+    path(route='contactus/', view=views.contact, name='contact'),
     # path for registration
 
     # path for login
