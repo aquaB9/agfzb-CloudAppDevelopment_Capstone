@@ -28,6 +28,9 @@ jobs:
           ibmcloud --version
           ibmcloud config --check-version=false
         shell: bash
+      - name: Update IBM Cloud CLI
+        run: ibmcloud update
+        shell: bash
       - name: Install CF plugin
         run: ibmcloud cf install -f
         shell: bash
