@@ -31,11 +31,6 @@ jobs:
       - name: Update IBM Cloud CLI
         run: ibmcloud update
         shell: bash
-      - name: Install Cloud Foundry CLI
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y cf
-        shell: bash
       - name: Install CF plugin
         run: ibmcloud cf install -f
         shell: bash
