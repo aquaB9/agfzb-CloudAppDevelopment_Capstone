@@ -135,9 +135,6 @@ def save_review(url, review):
     print(result)
     return result   
 
-
-
-
 # ---------------------------------------------------------
 
 # Create an `analyze_review_sentiments` method to call Watson NLU and analyze text
