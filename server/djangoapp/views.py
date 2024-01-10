@@ -91,7 +91,7 @@ def get_dealerships(request):
     dealer_names = []
 
     if request.method == "GET":
-        url = "https://d6f5d202.us-south.apigw.appdomain.cloud/api1/dealership"
+        url = "https://us-south.functions.appdomain.cloud/api/v1/web/77a51e91-e5c9-4d42-9c81-0ed40fdb627d/dealership-package/get-dealership"
         # Get dealers from the URL
         dealerships = get_dealers_from_cf(url)
         
@@ -110,33 +110,33 @@ def get_dealerships(request):
 # def get_dealer_details(request, dealer_id):
 # ...
 # Create a `get_dealer_details` view to render the reviews of a dealer
-def get_dealer_details(request, dealer_id, dealer_name):
+def get_dealer_details(request, dealerId, dealer_name):
     context = {}
     dealer_reviews = []
 
     if request.method == "GET":
-        url = "https://d6f5d202.us-south.apigw.appdomain.cloud/api2/getreview?id={}".format(dealer_id)
-        reviews = get_dealer_reviews_from_cf(url, dealer_id)
+        url = "https://d6f5d202.us-south.apigw.appdomain.cloud/api2/get-review?id={}".format(dealerId)
+        reviews = get_dealer_reviews_from_cf(url, dealerId)
 
         for review in reviews:
             dealer_reviews.append(review)
         
         context = {
-            "dealer_id":dealer_id,
+            "dealerId":dealerId,
             "dealer_name" : dealer_name,
             "reviews" : dealer_reviews
         }
         dealer_details = render(request, 'djangoapp/dealer_details.html', context)
         return dealer_details
 # Create a `add_review` view to submit a review
-# def add_review(request, dealer_id):
+# def add_review(request, dealerId):
 # ...
-def add_review(request, dealer_id, dealer_name):
-    url = 'https://d6f5d202.us-south.apigw.appdomain.cloud/api2/getreview'
-    cars = CarModel.objects.filter(dealer = dealer_id)
+def add_review(request, dealerId, dealer_name):
+    url = 'https://us-south.functions.appdomain.cloud/api/v1/web/77a51e91-e5c9-4d42-9c81-0ed40fdb627d/review-package/get-review'
+    cars = CarModel.objects.filter(dealer = dealerId)
 
     #user_name = User.objects.get(auth_user.name)
-    context = {"dealer_name":dealer_name,"dealer_id":dealer_id, "cars":cars}
+    context = {"dealer_name":dealer_name,"dealerId":dealerId, "cars":cars}
 
     # If it is a GET request, just render the registration page
     if request.method == 'GET':
@@ -146,12 +146,12 @@ def add_review(request, dealer_id, dealer_name):
         # Get user information from request.POST
         data = request.POST
         username = data['name']
-        dealer_id = dealer_id
+        dealerId = dealerId
         review_text = data['review']
         purchased = data['purchased']
         review = {
             "name": username,
-            "dealership": dealer_id,
+            "dealership": dealerId,
             "review": review_text,
             "purchase": purchased
         }
@@ -166,4 +166,4 @@ def add_review(request, dealer_id, dealer_name):
         res = save_review(url, review)
 
         return redirect(     
-            'djangoapp:dealer_details', dealer_id=dealer_id, dealer_name=dealer_name)
+            'djangoapp:dealer_details', dealerId=dealerId, dealer_name=dealer_name)
