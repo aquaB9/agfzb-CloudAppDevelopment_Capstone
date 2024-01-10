@@ -38,13 +38,13 @@ class CarModel(models.Model):
     
     SEDAN = 'sedan'
     SUV = 'suv'
-    WAGON = 'wagon'
-    HYPER = 'hyper'
+    HATCHBACK = 'hatchback'
+    COUPE = 'coupe'
     TYPE = [
-        (SEDAN, 'Sedan'),
-        (SUV, 'Suv'),
-        (WAGON, 'Wagon'),
-        (HYPER, 'Hyper')
+        (SEDAN, 'sedan'),
+        (SUV, 'suv'),
+        (HATCHBACK, 'hatchback'),
+        (COUPE, 'coupe')
     ]
 
     car_make = models.ForeignKey(CarMake, null=True, on_delete=models.CASCADE)
